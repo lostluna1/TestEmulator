@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "TestEmulator (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "TestEmulator (Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}

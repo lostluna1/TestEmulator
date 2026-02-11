@@ -1,0 +1,123 @@
+﻿<Page
+    x:Class="TestEmulator.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:lvc="using:LiveChartsCore.SkiaSharpView.WinUI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid x:Name="ContentArea">
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+                <Button Command="{x:Bind ViewModel.StartReadingCommand}" Content="开始读取" Margin="5" />
+                <Button Command="{x:Bind ViewModel.StopReadingCommand}" Content="停止读取" Margin="5" />
+                <Button Command="{x:Bind ViewModel.CloseCommand}" Content="关闭连接" Margin="5" />
+                <TextBlock Text="{x:Bind ViewModel.Status, Mode=OneWay}"
+                          VerticalAlignment="Center"
+                          Margin="20,0,0,0"
+                          FontWeight="SemiBold" />
+            </StackPanel>
+            <!-- 传感器数据显示 -->
+            <Grid Grid.Row="1" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Background="LightBlue" CornerRadius="5" Padding="10" Margin="2">
+                    <StackPanel>
+                        <TextBlock Text="设备状态" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{x:Bind ViewModel.Sensor.DeviceStatus, Mode=OneWay}"
+                                  HorizontalAlignment="Center" FontSize="16"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="1" Background="LightGreen" CornerRadius="5" Padding="10" Margin="2">
+                    <StackPanel>
+                        <TextBlock Text="湿度 (%)" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{x:Bind ViewModel.Sensor.Humidity, Mode=OneWay}"
+                                  HorizontalAlignment="Center" FontSize="16"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="2" Background="LightCoral" CornerRadius="5" Padding="10" Margin="2">
+                    <StackPanel>
+                        <TextBlock Text="气压 (hPa)" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{x:Bind ViewModel.Sensor.Pressure, Mode=OneWay}"
+                                  HorizontalAlignment="Center" FontSize="16"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="3" Background="LightYellow" CornerRadius="5" Padding="10" Margin="2">
+                    <StackPanel>
+                        <TextBlock Text="电压 (V)" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{x:Bind ViewModel.Sensor.Voltage, Mode=OneWay}"
+                                  HorizontalAlignment="Center" FontSize="16"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="4" Background="LightPink" CornerRadius="5" Padding="10" Margin="2">
+                    <StackPanel>
+                        <TextBlock Text="电流 (A)" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{x:Bind ViewModel.Sensor.Current, Mode=OneWay}"
+                                  HorizontalAlignment="Center" FontSize="16"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="5" Background="LightGray" CornerRadius="5" Padding="10" Margin="2">
+                    <StackPanel>
+                        <TextBlock Text="错误代码" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{x:Bind ViewModel.Sensor.ErrorCode, Mode=OneWay}"
+                                  HorizontalAlignment="Center" FontSize="16"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- 温度显示和图表标题 -->
+            <Grid Grid.Row="2" Margin="10">
+                <Border Background="Orange" CornerRadius="10" Padding="15">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="当前温度：" FontWeight="Bold" FontSize="20" VerticalAlignment="Center"/>
+                        <TextBlock Text="{x:Bind ViewModel.Sensor.Temperature, Mode=OneWay}"
+                                  FontWeight="Bold" FontSize="24" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                        <TextBlock Text="°C" FontWeight="Bold" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- 温度实时折线图 -->
+            <Border Grid.Row="3" Background="White" CornerRadius="10" Margin="10" Padding="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="温度实时变化图表"
+                              FontWeight="Bold" FontSize="16"
+                              HorizontalAlignment="Center" Margin="0,0,0,10"/>
+
+                    <lvc:CartesianChart Grid.Row="1"
+                                          Series="{x:Bind ViewModel.TemperatureSeries, Mode=OneWay}">
+                    </lvc:CartesianChart>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Page>
