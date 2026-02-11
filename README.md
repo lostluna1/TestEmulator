@@ -1,2 +1,3 @@
 # TestEmulator
-![设备外观](Assets/preview.gif)
+![预览](TestEmulator/Assets/preview.gif)
+
